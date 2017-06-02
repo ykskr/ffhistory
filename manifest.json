@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Firefox History Ex",
+  "version": "1.0",
+
+  "description": "FF History",
+
+  "sidebar_action": {
+    "default_title" : "True History",
+    "default_panel": "sidebar/history.html"
+  },
+  "permissions":["activeTab","history","storage","tabs"],
+  "commands":{
+   "_execute_sidebar_action":{
+    "suggested_key":{
+     "default":"Ctrl+Shift+I"
+    }
+   }
+  }
+}
