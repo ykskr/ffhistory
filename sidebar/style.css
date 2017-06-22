@@ -1,0 +1,12 @@
+body{
+ user-select:none;
+ -moz-user-select:none;
+}
+h1{
+ display:none;
+}
+h2{
+ margin:0px;
+ font-size:10px;
+ cursor:default;
+}
