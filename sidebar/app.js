@@ -4,7 +4,7 @@ window.addEventListener('load',function(){
  var domains=new Object();
  browser.history.search({'text':''}).then((logs)=>{
   logs.forEach((log)=>{
-   if(!log.url.match(new RegExp('^(https?://[^/]+/|file:///)(.*)'))){return;}
+   if(!log.url.match(new RegExp('^(?:https?|file)://([^/]+)/(.*)')))return;
    if(!domains[RegExp.$1])domains[RegExp.$1]=new Object();
    domains[RegExp.$1][RegExp.$2]=log;
   });
