@@ -2,7 +2,14 @@ window.addEventListener('load',function(){
  var root=document.getElementById('list');
  while(root.firstChild)root.removeChild(root.firstChild);
  var domains=new Object();
- browser.history.search({'text':''}).then((logs)=>{
+ var max=256;
+ new Promise(function(resolve,reject){
+  max*=max;
+  browser.history.search({'text':'','startTime':new Date('2000-01-01'),'maxResults':max}).then((res)=>{
+   if(res.length<max || max>1e9)resolve(res);
+   else arguments.callee(resolve,reject);
+  });
+ }).then(function(logs){
   logs.forEach((log)=>{
    if(!log.url.match(new RegExp('^(?:https?|file)://([^/]+)/(.*)')))return;
    if(!domains[RegExp.$1])domains[RegExp.$1]=new Object();
