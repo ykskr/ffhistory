@@ -28,10 +28,12 @@ window.addEventListener('load',function(){
    },false);
    Object.keys(domains[domain]).sort().forEach((path)=>{
     var elem=document.createElement('a');
-    elem.appendChild(document.createTextNode(domains[domain][path].title));
+    var title=domains[domain][path].title;
+    if(!title)title=domains[domain][path].url;
+    elem.appendChild(document.createTextNode(title));
     elem.setAttribute('href',domains[domain][path].url);
     elem.setAttribute('target','_blank');
-    elem.setAttribute('title',domains[domain][path].title+'\n'+domains[domain][path].url);
+    elem.setAttribute('title',title+'\n'+domains[domain][path].url);
     ebox.appendChild(elem);
    });
   });
