@@ -1,7 +1,10 @@
 window.addEventListener('load',function(){
  var root=document.getElementById('list');
- while(root.firstChild)root.removeChild(root.firstChild);
  var domains=new Object();
+ var elem=document.createElement('div');
+ elem.className='loading';
+ elem.appendChild(document.createTextNode('loading...'));
+ root.appendChild(elem);
  var max=256;
  new Promise(function(resolve,reject){
   max*=max;
@@ -10,6 +13,7 @@ window.addEventListener('load',function(){
    else arguments.callee(resolve,reject);
   });
  }).then(function(logs){
+  while(root.firstChild)root.removeChild(root.firstChild);
   logs.forEach((log)=>{
    if(!log.url.match(new RegExp('^(?:https?|file)://([^/]+)/(.*)')))return;
    if(!domains[RegExp.$1])domains[RegExp.$1]=new Object();
