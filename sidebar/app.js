@@ -13,12 +13,32 @@ window.addEventListener('load',function(){
    else arguments.callee(resolve,reject);
   });
  }).then(function(logs){
+  var dates=new Array();
   while(root.firstChild)root.removeChild(root.firstChild);
   logs.forEach((log)=>{
    if(!log.url.match(new RegExp('^(?:https?|file)://([^/]+)/(.*)')))return;
-   if(!domains[RegExp.$1])domains[RegExp.$1]=new Object();
-   domains[RegExp.$1][RegExp.$2]=log;
+   var logdate=Math.floor(log.lastVisitTime/86400000);
+   var nowdate=Math.floor(Date.now()/86400000);
+   var logd=new Date(log.lastVisitTime);
+   var nowd=new Date();
+   var inc=new Array();
+   if(logdate+1>nowdate){inc[0]=true;}
+   if(logdate+2>nowdate){inc[1]=true;}
+   if(logdate+7>nowdate){inc[2]=true;}
+   inc[nowd.getMonth()+nowd.getFullYear()*12-logd.getMonth()-logd.getFullYear()*12+3]=true;
+   for(var i=0;i<inc.length;i++){
+    if(!inc[i])continue;
+    if(!dates[i])dates[i]=new Object();
+    if(!dates[i][RegExp.$1])dates[i][RegExp.$1]=new Object();
+    dates[i][RegExp.$1][RegExp.$2]=log;
+   }
   });
+  for(i=0;i<dates.length;i++){
+   for(domain in dates[i]){
+    if(!domains[domain])domains[domain]=new Array();
+    domains[domain]=domains[domain].concat(dates[i][domain]);
+   }
+  }
   Object.keys(domains).sort().forEach((domain)=>{
    var elem=document.createElement('h2');
    elem.appendChild(document.createTextNode(domain));
