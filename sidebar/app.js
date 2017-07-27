@@ -75,5 +75,33 @@ window.addEventListener('load',function(){
    e.target.className=e.target.className?e.target.className+' focus':'focus';
    focused=e.target;
   },false);
+  window.addEventListener('keydown',(e)=>{
+   if(e.code=='ArrowDown'){
+    if(!document.getElementsByTagName('h2').length)return;
+    e.preventDefault();
+    var el,es,box,dir;
+    if(!focused){
+     el=document.getElementsByTagName('h2')[0];
+    }else{
+     var el=focused.nextSibling;
+     if(el && el.style.display=='none')el=el.nextSibling;
+     if(el){
+      if(el.style.display=='none')el=el.nextSibling;
+      else if(el.nodeName.toLowerCase()=='div')el=el.firstChild;
+     }else{
+      el=focused.parentNode;
+      while(!el.nextSibling)el=el.parentNode;
+      el=el.nextSibling;
+      if(el.style.display=='none')el=el.nextSibling;
+     }
+    }
+    if(!el)return;
+    if(focused)focused.className=focused.className.replace(/ ?focus/,'');
+    el.className=el.className?el.className+' focus':'focus';
+    focused=el;
+    box=el.getBoundingClientRect();
+    if(box.top+el.clientHeight>document.documentElement.clientHeight){window.scrollTo(window.scrollX,window.scrollY+box.top-document.documentElement.clientHeight+el.clientHeight);}
+   }
+  },false);
  });
 },false);
