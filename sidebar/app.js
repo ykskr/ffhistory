@@ -76,23 +76,42 @@ window.addEventListener('load',function(){
    focused=e.target;
   },false);
   window.addEventListener('keydown',(e)=>{
-   if(e.code=='ArrowDown'){
+   if(e.code=='ArrowUp' || e.code=='ArrowDown'){
     if(!document.getElementsByTagName('h2').length)return;
     e.preventDefault();
     var el,es,box,dir;
     if(!focused){
-     el=document.getElementsByTagName('h2')[0];
-    }else{
-     var el=focused.nextSibling;
-     if(el && el.style.display=='none')el=el.nextSibling;
-     if(el){
-      if(el.style.display=='none')el=el.nextSibling;
-      else if(el.nodeName.toLowerCase()=='div')el=el.firstChild;
+     if(e.code=='ArrowUp'){
+      el=document.getElementById('list').lastChild;
+      while(el && el.lastChild.nodeName!='#text'){
+       el=el.lastChild;
+       if(el.lastChild.style.display=='none')break;
+      }
+      if(el.style.display=='none')el=el.previousSibling;
      }else{
-      el=focused.parentNode;
-      while(!el.nextSibling)el=el.parentNode;
-      el=el.nextSibling;
-      if(el.style.display=='none')el=el.nextSibling;
+      el=document.getElementsByTagName('h2')[0];
+     }
+    }else{
+     if(e.code=='ArrowUp'){
+      var el=focused.previousSibling;
+      if(el){
+       while(el.nodeName.toLowerCase()=='div' && el.style.display!='none')el=el.lastChild;
+       if(el.style.display=='none')el=el.previousSibling;
+      }else{
+       if(focused.nodeName.toLowerCase()!='h2')el=focused.parentNode.previousSibling;
+      }
+     }else{
+      var el=focused.nextSibling;
+      if(el && el.style.display=='none')el=el.nextSibling;
+      if(el){
+       if(el.style.display=='none')el=el.nextSibling;
+       else if(el.nodeName.toLowerCase()=='div')el=el.firstChild;
+      }else{
+       el=focused.parentNode;
+       while(!el.nextSibling)el=el.parentNode;
+       el=el.nextSibling;
+       if(el.style.display=='none')el=el.nextSibling;
+      }
      }
     }
     if(!el)return;
@@ -100,7 +119,11 @@ window.addEventListener('load',function(){
     el.className=el.className?el.className+' focus':'focus';
     focused=el;
     box=el.getBoundingClientRect();
-    if(box.top+el.clientHeight>document.documentElement.clientHeight){window.scrollTo(window.scrollX,window.scrollY+box.top-document.documentElement.clientHeight+el.clientHeight);}
+    if(box.top+el.clientHeight>document.documentElement.clientHeight){
+     window.scrollTo(window.scrollX,window.scrollY+box.top-document.documentElement.clientHeight+el.clientHeight);
+    }else if(box.top<0){
+     window.scrollTo(window.scrollX,window.scrollY+box.top);
+    }
    }
   },false);
  });
