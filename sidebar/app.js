@@ -68,5 +68,12 @@ window.addEventListener('load',function(){
     });
    });
   });
+  var focused=undefined;
+  window.addEventListener('click',(e)=>{
+   if(e.target.nodeName.toLowerCase()=='body' || e.target.nodeName.toLowerCase()=='html')return;
+   if(focused)focused.className=focused.className.replace(/ ?focus/,'');
+   e.target.className=e.target.className?e.target.className+' focus':'focus';
+   focused=e.target;
+  },false);
  });
 },false);
