@@ -124,6 +124,29 @@ window.addEventListener('load',function(){
     }else if(box.top<0){
      window.scrollTo(window.scrollX,window.scrollY+box.top);
     }
+   }else if(e.code=='ArrowLeft'){
+    if(!focused){
+     window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowDown'}));
+     return;
+    }
+    if(focused.nodeName.toLowerCase()!='a' && focused.nextSibling.style.display!='none')focused.nextSibling.style.display='none';
+    else if(focused.nodeName.toLowerCase()=='h2')return;
+    else{
+     focused.className=focused.className.replace(/ ?focus/,'');
+     focused=focused.parentNode.previousSibling;
+     focused.className+=focused.className?focused.className+' focus':'focus';
+    }
+    e.preventDefault();
+   }else if(e.code=='ArrowRight'){
+    if(!focused){
+     if(!document.getElementsByTagName('h2').length)return;
+     focused=document.getElementsByTagName('h2')[0];
+     return;
+    }
+    if(focused.nodeName.toLowerCase()=='a')return;
+    if(focused.nextSibling.style.display=='none')focused.nextSibling.style.display='';
+    else window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowDown'}));
+    e.preventDefault();
    }
   },false);
  });
