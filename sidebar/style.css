@@ -1,30 +1,38 @@
 body{
  user-select:none;
  -moz-user-select:none;
+ margin:5px;
 }
 h1{
  display:none;
 }
 h2{
  margin:0px;
- font-size:11px;
+ font-size:12px;
  cursor:default;
+ font-weight:normal;
 }
 h3{
  margin:0px;
- font-size:10px;
+ font-size:12px;
  cursor:default;
+ font-weight:normal;
 }
 div{
  white-space:nowrap;
- padding-left:5px;
+}
+div.hosts{
+ margin-left:5px;
+}
+div.urls{
+ margin-left:10px;
 }
 a{
  display:block;
- font-size:9px;
+ font-size:12px;
 }
 .loading{
- font-size:8px;
+ font-size:10px;
 }
 .focus{
  background:#004488;

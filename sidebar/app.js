@@ -40,6 +40,7 @@ window.addEventListener('load',function(){
    root.appendChild(elem);
    var epck=document.createElement('div');
    root.appendChild(epck);
+   epck.className='hosts';
    epck.style.display='none';
    elem.addEventListener('click',function(e){
     var elem=this.nextSibling;
@@ -51,6 +52,7 @@ window.addEventListener('load',function(){
     epck.appendChild(elem);
     var ebox=document.createElement('div');
     epck.appendChild(ebox);
+    ebox.className='urls';
     ebox.style.display='none';
     elem.addEventListener('click',function(e){
      var elem=this.nextSibling;
