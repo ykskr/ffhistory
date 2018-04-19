@@ -36,7 +36,8 @@ window.addEventListener('load',function(){
    if(!domains)return;
    elem=document.createElement('h2');
    var label=['今日','昨日','今週','今月'];
-   elem.appendChild(document.createTextNode(i<label.length?label[i]:Math.floor((new Date()).getMonth()+4-i)+'月'));
+   var mon=Math.floor((new Date()).getMonth()+15-i)%12+1;
+   elem.appendChild(document.createTextNode(i<label.length?label[i]:mon+'月'));
    root.appendChild(elem);
    var epck=document.createElement('div');
    root.appendChild(epck);
