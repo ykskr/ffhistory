@@ -121,6 +121,7 @@ window.addEventListener('load',function(){
     if(focused)focused.className=focused.className.replace(/ ?focus/,'');
     el.className=el.className?el.className+' focus':'focus';
     focused=el;
+    focused.focus();
     box=el.getBoundingClientRect();
     if(box.top+el.clientHeight>document.documentElement.clientHeight){
      window.scrollTo(window.scrollX,window.scrollY+box.top-document.documentElement.clientHeight+el.clientHeight);
@@ -139,6 +140,7 @@ window.addEventListener('load',function(){
      focused=focused.parentNode.previousSibling;
      focused.className+=focused.className?focused.className+' focus':'focus';
     }
+    focused.focus();
     e.preventDefault();
    }else if(e.code=='ArrowRight'){
     if(!focused){
@@ -149,6 +151,7 @@ window.addEventListener('load',function(){
     if(focused.nodeName.toLowerCase()=='a')return;
     if(focused.nextSibling.style.display=='none')focused.nextSibling.style.display='';
     else window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowDown'}));
+    focused.focus();
     e.preventDefault();
    }
   },false);
