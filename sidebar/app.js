@@ -142,13 +142,17 @@ window.addEventListener('load',function(){
     }
     focused.focus();
     e.preventDefault();
-   }else if(e.code=='ArrowRight'){
+   }else if(e.code=='ArrowRight' || e.code=='Enter'){
     if(!focused){
      if(!document.getElementsByTagName('h2').length)return;
      focused=document.getElementsByTagName('h2')[0];
      return;
     }
-    if(focused.nodeName.toLowerCase()=='a')return;
+    if(focused.nodeName.toLowerCase()=='a'){
+     if(e.code=='Enter')focused.click();
+     e.preventDefault();
+     return;
+    }
     if(focused.nextSibling.style.display=='none')focused.nextSibling.style.display='';
     else window.dispatchEvent(new KeyboardEvent('keydown',{code:'ArrowDown'}));
     focused.focus();
