@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Firefox History Ex",
-  "version": "1.0.1",
+  "version": "1.0.2",
 
   "description": "FF History",
 
@@ -14,7 +14,7 @@
    "_execute_sidebar_action":{
     "suggested_key":{
      "mac":"Ctrl+Shift+H",
-     "default":"Ctrl+Shift+O"
+     "default":"Ctrl+Shift+U"
     }
    }
   }
